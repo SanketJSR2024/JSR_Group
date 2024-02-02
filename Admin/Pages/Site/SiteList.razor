@@ -1,0 +1,93 @@
+﻿@page "/site-list"
+@using Models
+@using Business.Repository.IRepository
+@inject ISiteRepository SiteRepository
+@inject IJSRuntime JsRuntime
+@inject Admin.Service.IService.IFileUpload FileUpload
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = Common.SD.Role_Admin)]
+<div class="row mt-4">
+    <div class="col-8">
+        <h4 class="card-title text-info">Hotel Room's</h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink href="hotel-room/create" class="btn btn-info form-control">Add New</NavLink>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (siteList.Any())
+                {
+                    foreach (var site in siteList)
+                    {
+                        <tr>
+                            <td>@site.Name</td>
+                            <td>
+                                <NavLink href="@($"hotel-room/edit/{site.Id}")" class="btn btn-primary">Edit</NavLink>
+                                @* <button class="btn btn-danger" @onclick="()=>HandleDelete(room.Id)">Delete</button> *@
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No records found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@* <DeleteConfirmation IsParentComponentProcessing="IsProcessing" ConfirmationChanged="ConfirmDelete_Click"></DeleteConfirmation> *@
+
+@code {
+    private IEnumerable<SiteDTO> siteList { get; set; } = new List<SiteDTO>();
+    private int? DeleteRoomId { get; set; } = null;
+    private bool IsProcessing { get; set; } = false;
+    protected override async Task OnInitializedAsync()
+    {
+       // HotelRooms = await HotelRoomRepository.GetAllHotelRooms();
+        siteList = await SiteRepository.GetSites();
+
+    }
+
+
+    // private async Task HandleDelete(int roomId)
+    // {
+    //     DeleteRoomId = roomId;
+    //     await JsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    // }
+
+    // public async Task ConfirmDelete_Click(bool isConfirmed)
+    // {
+    //     IsProcessing = true;
+    //     if (isConfirmed && DeleteRoomId != null)
+    //     {
+    //         SiteDTO hotelRoom = await HotelRoomRepository.GetHotelRoom(DeleteRoomId.Value);
+    //         foreach (var image in hotelRoom.HotelRoomImages)
+    //         {
+    //             var imageName = image.RoomImageUrl.Replace($"{NavigationManager.BaseUri}RoomImages/", "");
+    //             FileUpload.DeleteFile(imageName);
+    //         }
+
+    //         await HotelRoomRepository.DeleteHotelRoom(DeleteRoomId.Value);
+    //         await JsRuntime.ToastrSuccess("Hotel Room Deleted successfully");
+    //         HotelRooms = await HotelRoomRepository.GetAllHotelRooms();
+    //     }
+    //     await JsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+    //     IsProcessing = false;
+    // }
+}

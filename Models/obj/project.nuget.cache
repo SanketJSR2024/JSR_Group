@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "fVWw3gF8orVfXFcLI5U3kInkjMnuE8uauyszVB0ryq7T7RRoMiOdCfU3Ax0u9TRwAJyEcrOkZ3vsD5fzmJAQrA==",
+  "success": true,
+  "projectFilePath": "D:\\DotNet\\JSR\\JSR_PROJECT\\Models\\Models.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\DELL\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Newtonsoft.Json' 12.0.3 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}
